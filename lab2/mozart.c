@@ -11,14 +11,23 @@ struct {
 	unsigned long long		y;
 } a = { 0, 1756, "mozart", "???", 8243124871055238688ull };
 
+int bp() {}
+
 size_t strlen(const char* s)
 {
 	int		i;
 	
 	i = 0;
 
-	while (s[i] != 0)
+	// As the loop goes into x, it does not encounter a 0.
+	// A possible fix would be to have a maxlength
+	
+	while (s[i] != 0) {
+		if (s[i] == 't') {
+			bp();
+		}
 		i++;
+	}
 
 	return i;
 }

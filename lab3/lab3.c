@@ -16,7 +16,7 @@ void fail1()
 	printf("b[0] = %d\n", b[0]);
 	printf("*b   = %d\n", *b);
 	*b = 2;
-	a[N] = 3;
+	a[N-1] = 3;
 	printf("*b = %d\n", *b);
 }
 
@@ -31,8 +31,9 @@ void fail2()
 	printf("b[0] = %d\n", b[0]);
 	printf("*b   = %d\n", *b);
 	*b = 2;
-	a[N] = 3;
+	a[N-1] = 3;
 	printf("*b = %d\n", *b);
+	free(a);
 }
 
 void fail3()
@@ -44,13 +45,16 @@ void fail3()
 
 	a = calloc(N, sizeof(int));
 	b = calloc(N, sizeof(int));
-	c = calloc(N, sizeof(int));
+	c = calloc(N, sizeof(long long));
 
 	for (i = 0; i < N; ++i) {
 		a[i] = i;
 		b[i] = i;
 		c[i] = i;
 	}
+	free(a);
+	free(b);
+	free(c);
 }
 
 void fail4()
@@ -62,11 +66,11 @@ void fail4()
 	a  = b = calloc(N, sizeof(int));
 	c = &a[N/2];
 
-	free(NULL);
-	free(&a);
+	//free(NULL);
+	//free(&a);
 	free(a);
-	free(b);
-	free(c);
+//	free(b);
+//	free(c);
 }
 
 void fail5()
@@ -80,10 +84,10 @@ void fail5()
 	for (i = 0; i < N; i++)
 		a[i] = calloc(N, sizeof(int));
 
-	free(a);
-
 	for (i = 0; i < N; i++)
 		free(a[i]);
+
+	free(a);
 }
 
 void fail6()
@@ -92,9 +96,9 @@ void fail6()
 
 	a = alloca(N * sizeof(int));
 
-	a[N] = 1;
+	a[N-1] = 1;
 
-	free(a);
+//	free(a);
 }
 
 int main(int argc, char **argv)
